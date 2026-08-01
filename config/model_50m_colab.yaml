@@ -1,1 +1,36 @@
+# 50M parameter GPT — tuned for Google Colab free T4 GPU
 
+model:
+  block_size: 1024
+  vocab_size: 50304
+  n_layer: 8
+  n_head: 8
+  n_embd: 512
+  dropout: 0.0
+  bias: false
+
+training:
+  batch_size: 8
+  gradient_accumulation_steps: 16
+  max_steps: 50000
+  learning_rate: 3.0e-4
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  warmup_steps: 1000
+  lr_decay_steps: 50000
+  min_lr: 3.0e-5
+  eval_interval: 500
+  log_interval: 10
+  checkpoint_interval: 1000
+  dtype: float16
+
+data:
+  train_bin: data/processed/train.bin
+  val_bin: data/processed/val.bin
+  meta_pkl: data/processed/meta.pkl
+
+paths:
+  checkpoint_dir: checkpoints
+  cache_dir: .cache
